@@ -45,20 +45,18 @@ class WeatherPage extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: Center(
-              child: blocState is InitialWeatherState
-                  ? const CircularProgressIndicator()
-                  : blocState is LoadingWeatherState
-                      ? const CircularProgressIndicator(
-                          color: Colors.red,
-                        )
-                      //when weather data is loaded/ready to display
-                      : blocState is LoadedWeatherState
-                          ? displayWeather(blocState.weatherData,
-                              context) //just a collection of widgets
-                          : blocState is WeatherNotLoadedState
-                              ? const Text("Check connection")
-                              : const Text("exception"),
-            ),
+                child: blocState is InitialWeatherState
+                    ? const CircularProgressIndicator()
+                    : blocState is LoadingWeatherState
+                        ? const CircularProgressIndicator(
+                            color: Colors.red,
+                          )
+                        //when weather data is loaded/ready to display
+                        : blocState is LoadedWeatherState
+                            ? DisplayWeather(mausam: blocState.weatherData)
+                            : (blocState is WeatherNotLoadedState)
+                                ? const Text("Check connection")
+                                : null),
           ),
         );
       }),
