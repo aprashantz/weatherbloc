@@ -13,7 +13,7 @@ class WeatherPage extends StatelessWidget {
 
     return BlocProvider<WeatherBloc>(
       create: (context) =>
-          WeatherBloc(InitialWeatherState())..add(InitialWeatherEvent()),
+          WeatherBloc(LoadingWeatherState())..add(InitialWeatherEvent()),
       child:
           BlocBuilder<WeatherBloc, WeatherState>(builder: (context, blocState) {
         return Scaffold(
@@ -45,18 +45,14 @@ class WeatherPage extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: Center(
-                child: blocState is InitialWeatherState
+                child: blocState is LoadingWeatherState
                     ? const CircularProgressIndicator()
-                    : blocState is LoadingWeatherState
-                        ? const CircularProgressIndicator(
-                            color: Colors.red,
-                          )
-                        //when weather data is loaded/ready to display
-                        : blocState is LoadedWeatherState
-                            ? DisplayWeather(mausam: blocState.weatherData)
-                            : (blocState is WeatherNotLoadedState)
-                                ? const Text("Check connection")
-                                : null),
+                    //when weather data is loaded/ready to display
+                    : blocState is LoadedWeatherState
+                        ? DisplayWeather(mausam: blocState.weatherData)
+                        : (blocState is WeatherNotLoadedState)
+                            ? const Text("Check connection")
+                            : null),
           ),
         );
       }),

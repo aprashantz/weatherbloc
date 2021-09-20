@@ -8,8 +8,8 @@ part 'weather_state.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   @override
-  WeatherBloc(InitialWeatherState initialWeatherState)
-      : super(InitialWeatherState());
+  WeatherBloc(LoadingWeatherState loadingWeatherState)
+      : super(LoadingWeatherState());
 
   @override
   Stream<WeatherState> mapEventToState(
